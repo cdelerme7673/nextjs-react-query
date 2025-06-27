@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default function QueryProvider({ children }: Props) {
+  // insures data is not shared between different users and requests.
   const [queryClient] = useState(() => new QueryClient());
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

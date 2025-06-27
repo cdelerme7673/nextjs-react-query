@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 type Post = {
   userId: number;
@@ -18,14 +18,12 @@ export default function Home() {
   const { data, error, isLoading, isError } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
-    // staleTime: 5000,
-    // refetchOnWindowFocus: false,
-    // retry: 5,
-    // refetchInterval: 10000,
   });
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{(error as Error).message}</div>;
+  if (isError)
+    return <div>{(error as Error).message || "Error fetching data."}</div>;
+
   return (
     <div>
       {data?.map((post, i) => {
